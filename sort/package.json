@@ -1,0 +1,14 @@
+{
+  "name": "sort",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start:build": "tsc -w",
+    "start:run": "nodemon build/index.js",
+    "start": "concurrently yarn:start:*"
+  },
+  "dependencies": {
+    "concurrently": "^6.0.1"
+  }
+}
