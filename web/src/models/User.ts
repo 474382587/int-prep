@@ -1,3 +1,4 @@
+import { Collection } from './Collection';
 import { baseUrl } from './../constant';
 import { AxiosResponse } from 'axios';
 import { Attributes } from './Attributes';
@@ -17,6 +18,21 @@ export class User extends Model<UserProps> {
       new Attributes<UserProps>(attrs),
       new Eventing(),
       new ApiSync<UserProps>(`${baseUrl}/users`)
-    )
+    );
   }
+
+  static buildUserCollection(): Collection<User, UserProps> {
+    console.log('build')
+    return new Collection<User, UserProps>(
+      `${baseUrl}/users`,
+      (json: UserProps) => {
+        return User.buildUser(json);
+      }
+    );
+  }
+
+  setRandomAge = (): void => {
+    const age = Math.round(Math.random() * 100);
+    this.set({ age });
+  };
 }

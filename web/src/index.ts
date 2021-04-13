@@ -1,16 +1,25 @@
+import { UserList } from './views/UserList';
+import { UserEdit } from './views/UserEdit';
 import { User } from './models/User';
+import { UserForm } from './views/UserForm';
 
-const user = User.buildUser({ id: 1 });
-// user.attributes.set({ name: 'joe' });
-// user.sync.save()
-// user.fetch();
-// console.log(user);
+const root = document.getElementById('root');
+// if (!root) {
+//   throw new Error('no root element');
+// } else {
+//   const userForm = new UserEdit(
+//     root,
+//     User.buildUser({ name: 'joseph', age: 20 })
+//   );
+//   userForm.render();
+//   console.log(userForm);
+// }
 
-user.on('change', () => {
-  console.log(123123);
-});
-// user.trigger('change');
-user.set({
-  name: 'test',
-});
-user.save();
+if (root) {
+  const userCollection = User.buildUserCollection();
+  userCollection.fetch();
+  userCollection.on('change', () => {
+    const userList = new UserList(root, userCollection);
+    userList.render();
+  });
+}
