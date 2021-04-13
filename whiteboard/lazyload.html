@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    img {
+      min-height: 400px;
+      width: 100vw;
+      display: block;
+    }
+  </style>
+  <body>
+    <div style="height: 3000px"></div>
+    <img
+      src=""
+      data-src="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect/element-box-diagram.png"
+      alt=""
+    />
+    <img src="" data-src="https://picsum.photos/200/800" alt="" />
+    <img src="" data-src="https://picsum.photos/200/800" alt="" />
+    <img src="" data-src="https://picsum.photos/230/800" alt="" />
+    <img src="" data-src="https://picsum.photos/440/800" alt="" />
+    <img src="" data-src="https://picsum.photos/330/800" alt="" />
+    <img src="" data-src="https://picsum.photos/210/800" alt="" />
+    <img src="" data-src="https://picsum.photos/200/800" alt="" />
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const images = document.querySelectorAll('img');
+        console.log(123);
+        document.addEventListener('scroll', () => {
+          lazyload(images);
+        });
+      });
+
+      const lazyload = (images) => {
+        console.log('images');
+        const res = [];
+        const toBeRemoved = {};
+
+        for (let i = 0; i < images.length; i++) {
+          const { top } = images[i].getBoundingClientRect();
+
+          if (top < window.innerHeight) {
+            images[i].src = images[i].dataset.src;
+            continue;
+          }
+
+          res.push(images[i]);
+        }
+
+        return images;
+      };
+    </script>
+  </body>
+</html>
